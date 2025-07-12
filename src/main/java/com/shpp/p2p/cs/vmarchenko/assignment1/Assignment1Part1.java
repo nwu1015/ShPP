@@ -4,6 +4,8 @@ package com.shpp.p2p.cs.vmarchenko.assignment1;
  * The first task: Collect a newspaper.
  * This class implements the following actions: Karel goes to the newspaper (beeper),
  * picks it up and returns to its original position.
+ *
+ *
  */
 public class Assignment1Part1 extends SuperKarel {
     /**
@@ -16,6 +18,7 @@ public class Assignment1Part1 extends SuperKarel {
         pickUpNewspaper();
         goBack();
     }
+
 
     /**
      * Karel go to the newspaper.

@@ -33,6 +33,8 @@ public class SuperKarel extends KarelTheRobot {
 
     /**
      * Karel moves forward until there are no walls in front of him.
+     *
+     * @throws Exception if Karel is unable to turn
      */
     public void goForward() throws Exception {
         while (frontIsClear()) {
