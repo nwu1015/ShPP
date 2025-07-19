@@ -22,17 +22,17 @@ public class Assignment3Part4 extends WindowProgram {
     /**
      * A constant that sets how many bricks will be in the base.
      */
-    private static final int BRICKS_IN_BASE = 9;
+    private static final int BRICKS_IN_BASE = 10;
 
     /**
      * A constant that sets the height of the window.
      */
-    public static final int APPLICATION_HEIGHT = BRICK_HEIGHT * BRICKS_IN_BASE;
+    public static final int APPLICATION_HEIGHT = 600;
 
     /**
      * A constant that sets the width of the window.
      */
-    public static final int APPLICATION_WIDTH = BRICK_WIDTH * BRICKS_IN_BASE;
+    public static final int APPLICATION_WIDTH = 600;
 
     /**
      * The main method of application. Allows to test the given program.
@@ -48,11 +48,9 @@ public class Assignment3Part4 extends WindowProgram {
      */
     public void buildPyramid() {
         // Number of rows in the pyramid
-        int maxRows = BRICKS_IN_BASE / 2 + 1;
-
-        for (int row = 0; row < maxRows; row++) {
+        for (int row = 0; row < BRICKS_IN_BASE; row++) {
             // The number of bricks in one row.
-            int numberOfBricks = BRICKS_IN_BASE - row * 2;
+            int numberOfBricks = BRICKS_IN_BASE - row;
 
             // The starting location from which a row of bricks is built.
             double x = (getWidth() - numberOfBricks * BRICK_WIDTH) / 2.0;
