@@ -81,19 +81,19 @@ public class Assignment3Part6 extends WindowProgram {
         GOval planet1 = createOval((getWidth() - PLANET1_SIZE) / 2.0,
                 (getHeight() + SUN_SIZE) / 2.0 + SPACE_BETWEEN_PLANETS,
                 PLANET1_SIZE, PLANET1_SIZE, PLANET1_COLOR);
-        double planet1Angle = 0.3;
+        double planet1Angle = 0.07;
         planets.put(planet1, planet1Angle);
 
         GOval planet2 = createOval((getWidth() - PLANET2_SIZE) / 2.0,
                 (getHeight() + SUN_SIZE) / 2.0 + SPACE_BETWEEN_PLANETS * 2,
                 PLANET2_SIZE, PLANET2_SIZE, PLANET2_COLOR);
-        double planet2Angle = 0.2;
+        double planet2Angle = 0.03;
         planets.put(planet2, planet2Angle);
 
         GOval planet3 = createOval((getWidth() - PLANET3_SIZE) / 2.0,
                 (getHeight() + SUN_SIZE) / 2.0 + SPACE_BETWEEN_PLANETS * 3,
                 PLANET3_SIZE, PLANET3_SIZE, PLANET3_COLOR);
-        double planet3Angle = 0.1;
+        double planet3Angle = 0.01;
         planets.put(planet3, planet3Angle);
 
         doAnimation(planets);
@@ -148,7 +148,7 @@ public class Assignment3Part6 extends WindowProgram {
 
                 planet.setLocation(x, y);
             }
-            pause(70);
+            pause(1000 / 60.0);
         }
 
         // Stop animation timer and show in console

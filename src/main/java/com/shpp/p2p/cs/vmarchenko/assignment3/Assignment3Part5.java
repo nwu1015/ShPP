@@ -55,16 +55,12 @@ public class Assignment3Part5 extends TextProgram {
     public void continuePlaying(int number) {
         if (number % 2 == 0) {
             dollarsInGame += dollarsInGame;
-            println("Heads!");
-            println("Dollars in game " + dollarsInGame);
         } else {
             luckyGuyBalance += dollarsInGame;
-            println("Tails!");
             println("This game you earned " + dollarsInGame + " dollars");
             println("Your total is " + luckyGuyBalance);
             dollarsInGame = 1;
+            gameCounter++;
         }
-        gameCounter++;
-        println(" ");
     }
 }

@@ -52,7 +52,7 @@ public class Assignment3Part2 extends TextProgram {
                 println(number + " is even so I take half: " + number / 2);
                 number = number / 2;
             } else {
-                println(number + " is odd so I make 3n + 1: " + (3 * number) + 1);
+                println(number + " is odd so I make 3n + 1: " + ((3 * number) + 1));
                 number = (3 * number) + 1;
             }
 

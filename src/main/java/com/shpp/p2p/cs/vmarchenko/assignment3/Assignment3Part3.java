@@ -14,7 +14,7 @@ public class Assignment3Part3 extends TextProgram {
      * Calls a method that raises the given number to the given power.
      */
     public void run() {
-        println(raiseToPower(0, 0));
+        println(raiseToPower(0, -2));
 
     }
 
@@ -26,6 +26,12 @@ public class Assignment3Part3 extends TextProgram {
      * @return result of raising to a power.
      */
     private double raiseToPower(double base, int exponent) {
+
+        if (base == 0 && exponent < 0) {
+            println("Undefined");
+            return 0;
+        };
+
         // Anything raised to the 0 power will equal 1.
         if (exponent == 0) return 1;
 
