@@ -14,7 +14,13 @@ public class Assignment3Part3 extends TextProgram {
      * Calls a method that raises the given number to the given power.
      */
     public void run() {
-        println(raiseToPower(0, -2));
+        double result = raiseToPower(0, -2);
+
+        if (!Double.isNaN(result)) {
+            println(result);
+        }else {
+            println("You can use base = 0 with negative exponent");
+        }
 
     }
 
@@ -27,9 +33,9 @@ public class Assignment3Part3 extends TextProgram {
      */
     private double raiseToPower(double base, int exponent) {
 
+        // Handling the situation when exponentiation gives uncertainty
         if (base == 0 && exponent < 0) {
-            println("Undefined");
-            return 0;
+            return Double.NaN;
         };
 
         // Anything raised to the 0 power will equal 1.

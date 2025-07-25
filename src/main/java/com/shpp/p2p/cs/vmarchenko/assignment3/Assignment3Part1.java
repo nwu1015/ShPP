@@ -51,8 +51,8 @@ public class Assignment3Part1 extends TextProgram {
         while (true) {
             try {
                 int minutesPerDay = readInt("How many minutes did you do on day " + day + "? ");
-                if (minutesPerDay < 0) {
-                    println("Please enter a number greater than 0.");
+                if (minutesPerDay < 0 || minutesPerDay > 1440) {
+                    println("Incorrect time entered");
                 } else {
                     return minutesPerDay;
                 }
