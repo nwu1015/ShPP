@@ -51,6 +51,8 @@ public class Assignment5Part1 extends TextProgram {
         }
 
         if (endsWithEWithoutPreviousVowel(word, vowels)) vowelCount--;
+
+        // TODO: в будь-якому випадку треба +1 (1 буква - 1 слово)
         if (needOneSyllableAtEndOfWord(word, vowelCount)) vowelCount++;
 
         return vowelCount;

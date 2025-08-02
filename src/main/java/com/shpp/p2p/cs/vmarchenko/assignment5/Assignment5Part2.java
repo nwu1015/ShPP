@@ -6,6 +6,8 @@ import com.shpp.cs.a.console.TextProgram;
  * The second task: Algorithm of addition
  * Asks the user for 2 numbers in the form of a string, which are added in the program.
  */
+
+// TODO: перевірити умови, чи потрібно їх обробляти
 public class Assignment5Part2 extends TextProgram {
     /**
      * The main method of application. Allows to test the given program.
@@ -72,24 +74,28 @@ public class Assignment5Part2 extends TextProgram {
         int[] sumResult = new int[array2.length + 1];
         int remainderForRounding = 0;
 
+        // Calculation from the end of the longest array
         for(int i = array2.length - 1; i >= 0; i--) {
             int number;
 
+            // Writing to the variable number a number
+            // with the same digit in both the smaller and larger numbers
             if (i - difference >= 0) {
                 number = array1[i - difference];
             }else {
                 number = 0;
             }
 
+            // Calculating numbers of the same digit and adding numbers with rounding
             int sum = array2[i] + number + remainderForRounding;
+
+            // In this category we leave the remainder from 10
             sumResult[i + 1] = sum % 10;
+
+            // The rounded number is carried to the next digit
             remainderForRounding = sum / 10;
         }
         sumResult[0] = remainderForRounding;
-
-        for(int i = array2.length - array1.length; i < array1.length; i++) {
-            array2[i] = array1[i - difference];
-        }
 
         StringBuilder output = new StringBuilder();
         int index = 0;
