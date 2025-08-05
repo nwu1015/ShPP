@@ -30,7 +30,6 @@ public class Assignment5Part1 extends TextProgram {
      * @return An estimate of the number of syllables in that word.
      */
     private int syllablesInWord(String word) {
-
         // Array of all vowels
         char[] vowels = {'a', 'e', 'i', 'o', 'u', 'y'};
 
@@ -41,18 +40,19 @@ public class Assignment5Part1 extends TextProgram {
         // If the first letter is a vowel
         if (isVowel(vowels, word.charAt(0))) vowelCount++;
 
-        for (int letter = 1; letter < word.length(); letter++) {
-            if (isVowel(vowels, word.charAt(letter))) vowelCount++;
+        if (word.length() >= 2) {
+            for (int letter = 1; letter < word.length(); letter++) {
+                if (isVowel(vowels, word.charAt(letter))) vowelCount++;
 
-            // If the previous letter is a vowel, then the syllable is subtracted
-            if (isVowel(vowels, word.charAt(letter - 1)) && isVowel(vowels, word.charAt(letter))) {
-                vowelCount--;
+                // If the previous letter is a vowel, then the syllable is subtracted
+                if (isVowel(vowels, word.charAt(letter - 1)) && isVowel(vowels, word.charAt(letter))) {
+                    vowelCount--;
+                }
             }
+
+            if (endsWithEWithoutPreviousVowel(word, vowels)) vowelCount--;
         }
 
-        if (endsWithEWithoutPreviousVowel(word, vowels)) vowelCount--;
-
-        // TODO: в будь-якому випадку треба +1 (1 буква - 1 слово)
         if (needOneSyllableAtEndOfWord(word, vowelCount)) vowelCount++;
 
         return vowelCount;
@@ -89,8 +89,8 @@ public class Assignment5Part1 extends TextProgram {
     }
 
     /**
-     * If a word consists of more than 2 letters, has no syllables,
-     * but has a vowel (e) at the end, then one syllable is added.
+     * If a word consists of more than 1 letter, has no syllables,
+     * then one syllable is added.
      *
      * @param word       user-supplied word
      * @param vowelCount number of syllables in a word
@@ -98,8 +98,6 @@ public class Assignment5Part1 extends TextProgram {
      * 2-3 letters contains the vowel "e"
      */
     public boolean needOneSyllableAtEndOfWord(String word, int vowelCount) {
-        return word.length() >= 2
-                && vowelCount == 0
-                && word.charAt(word.length() - 1) == 'e';
+        return !word.isEmpty() && vowelCount == 0;
     }
 }

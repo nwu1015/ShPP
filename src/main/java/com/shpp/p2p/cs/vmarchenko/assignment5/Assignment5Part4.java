@@ -6,13 +6,28 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The fourth task: CSV parsing
+ * The program reads the file, column number, and outputs the corresponding content of these columns.
+ */
 public class Assignment5Part4 extends TextProgram {
+    /**
+     * The main method of application. Allows to test the given program.
+     * Calls a method to process a file, outputs the result.
+     */
     public void run(){
-        ArrayList<String> result = extractColumn("Task5Part4.csv", 1);
-
+        ArrayList<String> result = extractColumn("Task5Part4.csv", 2);
         println(result);
     }
 
+    /**
+     * Reads the file sequentially and calls a method to write the content
+     * from the corresponding column. If the file does not exist, returns null.
+     *
+     * @param filename the name of the specified file
+     * @param columnIndex column number in the file
+     * @return data from the corresponding column.
+     */
     private ArrayList<String> extractColumn(String filename, int columnIndex){
         ArrayList<String> row;
         ArrayList<String> result = new ArrayList<>();
@@ -21,37 +36,48 @@ public class Assignment5Part4 extends TextProgram {
             while (scanner.hasNextLine()) {
                 row = fieldsIn(scanner.nextLine());
                 result.add(row.get(columnIndex));
-
             }
-        }catch (Exception e){
+        }catch (FileNotFoundException e){
             return null;
         }
         return result;
     }
 
+    /**
+     * Method for converting a read string (its content) into a dynamic array.
+     *
+     * @param line read line
+     * @return an array of data that was taken from a string
+     */
     private ArrayList<String> fieldsIn(String line) {
         ArrayList<String> result = new ArrayList<>();
+        StringBuilder word = new StringBuilder();
+        boolean isQuoteBefore = false;
 
-        if(!line.contains("\"")){
-            String[] fields = line.split(",");
-            for (String field : fields) {
-                result.add(field.trim());
-            }
-        }else {
-            for(int i = 0; i < line.length(); i++){
-                // ЦЕ ВСЕ НИЖЧЕ ТОЧНО ТРЕБА
-                String testLine = "";
+        /*
+        I found this approach. I reworked my solution because it did not
+        handle the situation when there were still
+        quotes inside the quotes. I used the search for the nearest neighboring quotes
+        and because of this the program worked incorrectly in such cases.
+         */
+        for (int i = 0; i < line.length(); i++) {
+            char symbol = line.charAt(i);
 
-                int firstQuote = line.indexOf("\"");
-                int lastQuote = line.indexOf("\"", firstQuote + 1);
-
-                for(int j = firstQuote + 1; j < lastQuote; j++){
-                    testLine = line.substring(firstQuote + 1, lastQuote);
+            if (symbol == '"') {
+                isQuoteBefore = !isQuoteBefore;
+                if (i + 1 < line.length() && line.charAt(i + 1) == '"') {
+                    word.append('"');
+                    i++;
                 }
-                println(testLine);
-                result.add(testLine);
+            } else if (symbol == ',' && !isQuoteBefore) {
+                result.add(word.toString());
+                word = new StringBuilder();
+            } else {
+                word.append(symbol);
             }
         }
+
+        result.add(word.toString());
 
         return result;
     }

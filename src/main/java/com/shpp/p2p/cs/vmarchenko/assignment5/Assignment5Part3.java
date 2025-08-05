@@ -16,8 +16,8 @@ public class Assignment5Part3 extends TextProgram {
      * The main method of application. Allows to test the given program.
      * Accepts 3 characters from the user.
      */
-    public void run(){
-        while(true){
+    public void run() {
+        while (true) {
             String input = readLine("Write 3 letters: ");
             showPossibleWords(input);
         }
@@ -30,7 +30,7 @@ public class Assignment5Part3 extends TextProgram {
      */
     private void showPossibleWords(String letters) {
         // Only accept 3 letters
-        if(letters.length() != 3){
+        if (letters.length() != 3) {
             println("Please enter 3 letters");
             return;
         }
@@ -40,20 +40,20 @@ public class Assignment5Part3 extends TextProgram {
 
         // Read the file sequentially
         try (Scanner scanner = new Scanner(new File("en-dictionary.txt"))) {
-            while(scanner.hasNext()){
+            while (scanner.hasNext()) {
                 String word = scanner.nextLine();
 
                 checkTheWord(letters, word, result);
             }
-        }catch(FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             println("File not found");
         }
 
         // Output of the result
-        if(!result.isEmpty()){
+        if (!result.isEmpty()) {
             println("Possible words: ");
             println(result.toString());
-        }else {
+        } else {
             println("No possible words");
         }
     }
@@ -63,24 +63,24 @@ public class Assignment5Part3 extends TextProgram {
      * of certain letters in the correct sequence.
      *
      * @param letters user-defined letters
-     * @param word word to check
-     * @param result StringBuilder to store the result if this word matches
+     * @param word    word to check
+     * @param result  StringBuilder to store the result if this word matches
      */
-    private void checkTheWord(String letters, String word, StringBuilder result){
+    private void checkTheWord(String letters, String word, StringBuilder result) {
         int index = -1;
         boolean isFound = true;
 
         for (int i = 0; i < letters.length(); i++) {
             char letter = letters.charAt(i);
             int foundIndex = word.indexOf(letter, index + 1);
-            if(foundIndex == -1){
+            if (foundIndex == -1) {
                 isFound = false;
                 break;
             }
             index = foundIndex;
         }
 
-        if(isFound){
+        if (isFound) {
             result.append(word).append("\n");
         }
     }

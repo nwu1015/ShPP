@@ -6,8 +6,6 @@ import com.shpp.cs.a.console.TextProgram;
  * The second task: Algorithm of addition
  * Asks the user for 2 numbers in the form of a string, which are added in the program.
  */
-
-// TODO: перевірити умови, чи потрібно їх обробляти
 public class Assignment5Part2 extends TextProgram {
     /**
      * The main method of application. Allows to test the given program.
@@ -40,7 +38,7 @@ public class Assignment5Part2 extends TextProgram {
         int difference = number1.length - number2.length;
         if (difference >= 0) {
             result = calculate(number2, number1, difference);
-        }else {
+        } else {
             result = calculate(number1, number2, -difference);
         }
 
@@ -53,7 +51,7 @@ public class Assignment5Part2 extends TextProgram {
      * @param number number specified by the user.
      * @return array of numbers
      */
-    public int[] fillTheArray(String number){
+    public int[] fillTheArray(String number) {
         int[] array = new int[number.length()];
 
         for (int i = 0; i < number.length(); i++) {
@@ -65,8 +63,8 @@ public class Assignment5Part2 extends TextProgram {
     /**
      * Implementing addition of numbers in an array.
      *
-     * @param array1 first array of numbers (shorter array)
-     * @param array2 second array of numbers (longer array)
+     * @param array1     first array of numbers (shorter array)
+     * @param array2     second array of numbers (longer array)
      * @param difference difference in arrays by length
      * @return calculation result
      */
@@ -75,14 +73,14 @@ public class Assignment5Part2 extends TextProgram {
         int remainderForRounding = 0;
 
         // Calculation from the end of the longest array
-        for(int i = array2.length - 1; i >= 0; i--) {
+        for (int i = array2.length - 1; i >= 0; i--) {
             int number;
 
             // Writing to the variable number a number
             // with the same digit in both the smaller and larger numbers
             if (i - difference >= 0) {
                 number = array1[i - difference];
-            }else {
+            } else {
                 number = 0;
             }
 
@@ -97,13 +95,23 @@ public class Assignment5Part2 extends TextProgram {
         }
         sumResult[0] = remainderForRounding;
 
+        return arrayToString(sumResult);
+    }
+
+    /**
+     * Converts the specified array to a string.
+     *
+     * @param sumResult the given array
+     * @return value from array as string
+     */
+    public String arrayToString(int[] sumResult) {
         StringBuilder output = new StringBuilder();
         int index = 0;
         if (sumResult[0] == 0) {
             index = 1;
         }
 
-        for(int i = index; i < sumResult.length; i++) {
+        for (int i = index; i < sumResult.length; i++) {
             output.append(sumResult[i]);
         }
 
