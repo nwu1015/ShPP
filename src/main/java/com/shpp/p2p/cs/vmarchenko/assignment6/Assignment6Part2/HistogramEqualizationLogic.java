@@ -1,5 +1,9 @@
 package com.shpp.p2p.cs.vmarchenko.assignment6.Assignment6Part2;
 
+/**
+ * The program allows the user to increase
+ * the contrast for the image, but the picture will be black and white.
+ */
 public class HistogramEqualizationLogic {
     private static final int MAX_LUMINANCE = 255;
     /**
@@ -51,12 +55,7 @@ public class HistogramEqualizationLogic {
      * @return The total number of pixels in that image.
      */
     public static int totalPixelsIn(int[][] luminances) {
-		int[] histogram = histogramFor(luminances);
-        int sum = 0;
-        for (int i = 0; i < histogram.length; i++) {
-            sum += histogram[i];
-        }
-        return sum;
+        return luminances.length * luminances[0].length;
     }
 
     /**

@@ -4,6 +4,10 @@ import acm.graphics.*;
 
 import java.awt.*;
 
+/**
+ * The program implements a mechanism for hiding information in an image,
+ * as well as restoring the same information through the interface.
+ */
 public class SteganographyLogic {
     /**
      * Given a GImage containing a hidden message, finds the hidden message
@@ -67,7 +71,7 @@ public class SteganographyLogic {
 
                 if(message[i][j]) {
                     if (c.getRed() % 2 == 0) {
-                        if(c.getRed() == 255) {
+                        if(c.getRed() == 0) {
                             redComponent = redComponent - 1;
                         } else {
                             redComponent = redComponent + 1;
@@ -75,7 +79,7 @@ public class SteganographyLogic {
                     }
                 } else {
                     if(c.getRed() % 2 != 0) {
-                        if(c.getRed() == 0) {
+                        if(c.getRed() == 255) {
                             redComponent = redComponent + 1;
                         } else {
                             redComponent = redComponent - 1;
