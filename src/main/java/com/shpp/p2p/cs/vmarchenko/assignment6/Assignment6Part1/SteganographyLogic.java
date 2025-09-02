@@ -71,19 +71,11 @@ public class SteganographyLogic {
 
                 if(message[i][j]) {
                     if (c.getRed() % 2 == 0) {
-                        if(c.getRed() == 0) {
-                            redComponent = redComponent - 1;
-                        } else {
-                            redComponent = redComponent + 1;
-                        }
+                        redComponent = redComponent + 1;
                     }
                 } else {
                     if(c.getRed() % 2 != 0) {
-                        if(c.getRed() == 255) {
-                            redComponent = redComponent + 1;
-                        } else {
-                            redComponent = redComponent - 1;
-                        }
+                        redComponent = redComponent - 1;
                     }
                 }
 
