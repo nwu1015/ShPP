@@ -17,9 +17,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class NameSurferDataBase implements NameSurferConstants {
-    private HashMap<String, NameSurferEntry> nameEntries = new HashMap<>();
-	/* Constructor: NameSurferDataBase(filename) */
+public class NameSurferDataBase {
+    private final HashMap<String, NameSurferEntry> nameEntries = new HashMap<>();
 
     /**
      * Creates a new NameSurferDataBase and initializes it using the
@@ -40,8 +39,6 @@ public class NameSurferDataBase implements NameSurferConstants {
             System.out.println("Something went wrong: " + io.getMessage());
         }
     }
-	
-	/* Method: findEntry(name) */
 
     /**
      * Returns the NameSurferEntry associated with this name, if one

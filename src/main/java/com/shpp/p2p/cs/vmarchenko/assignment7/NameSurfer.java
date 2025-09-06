@@ -18,8 +18,6 @@ public class NameSurfer extends SimpleProgram implements NameSurferConstants {
     private NameSurferDataBase dataBase;
     private JTextField nameField;
 
-	/* Method: init() */
-
     /**
      * This method has the responsibility for reading in the data base
      * and initializing the interactors at the top of the window.
@@ -27,30 +25,26 @@ public class NameSurfer extends SimpleProgram implements NameSurferConstants {
     public void init() {
         dataBase = new NameSurferDataBase(NAMES_DATA_FILE);
 
-        this.setSize(APPLICATION_WIDTH, APPLICATION_HEIGHT);
-
-        this.add(new JLabel("Name: "), "North");
+        add(new JLabel("Name: "), "North");
 
         nameField = new JTextField(10);
-        this.add(nameField, "North");
+        add(nameField, "North");
         nameField.setActionCommand("nameEntered");
         nameField.addActionListener(this);
 
         JButton graphButton = new JButton("Graph");
-        this.add(graphButton, "North");
+        add(graphButton, "North");
         graphButton.setActionCommand("graphPressed");
 
         JButton clearButton = new JButton("Clear");
-        this.add(clearButton, "North");
+        add(clearButton, "North");
         clearButton.setActionCommand("clearPressed");
 
         graph = new NameSurferGraph();
         add(graph);
 
-        this.addActionListeners();
+        addActionListeners();
     }
-
-	/* Method: actionPerformed(e) */
 
     /**
      * This class is responsible for detecting when the buttons are
@@ -65,6 +59,7 @@ public class NameSurfer extends SimpleProgram implements NameSurferConstants {
                 graph.addEntry(entry);
                 graph.update();
             }
+            nameField.setText("");
         }
 
         if(command.equals("clearPressed")) {

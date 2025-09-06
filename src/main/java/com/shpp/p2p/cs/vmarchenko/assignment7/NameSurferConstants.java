@@ -8,6 +8,8 @@ package com.shpp.p2p.cs.vmarchenko.assignment7;
  * that implements this interface can use these constants.
  */
 
+import java.awt.*;
+
 public interface NameSurferConstants {
 
     /**
@@ -44,5 +46,7 @@ public interface NameSurferConstants {
      * The number of pixels to reserve at the top and bottom
      */
     public static final int GRAPH_MARGIN_SIZE = 20;
+
+    public final Color[] COLORS = {Color.BLUE, Color.RED, Color.MAGENTA, Color.BLACK};
 
 }

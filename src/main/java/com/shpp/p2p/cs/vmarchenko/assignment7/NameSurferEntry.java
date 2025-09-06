@@ -10,12 +10,10 @@ package com.shpp.p2p.cs.vmarchenko.assignment7;
 
 import java.util.*;
 
-public class NameSurferEntry implements NameSurferConstants {
+public class NameSurferEntry {
 
     private final String name;
     private final int[] rank;
-
-	/* Constructor: NameSurferEntry(line) */
 
     /**
      * Creates a new NameSurferEntry from a data line as it appears
@@ -25,14 +23,12 @@ public class NameSurferEntry implements NameSurferConstants {
      */
     public NameSurferEntry(String line) {
         String[] parts = line.split(" ");
-        this.name = parts[0];
-        this.rank = new int[parts.length - 1];
+        name = parts[0];
+        rank = new int[parts.length - 1];
         for (int i = 1; i < parts.length; i++) {
             this.rank[i - 1] = Integer.parseInt(parts[i]);
         }
     }
-
-	/* Method: getName() */
 
     /**
      * Returns the name associated with this entry.
@@ -40,8 +36,6 @@ public class NameSurferEntry implements NameSurferConstants {
     public String getName() {
         return name;
     }
-
-	/* Method: getRank(decade) */
 
     /**
      * Returns the rank associated with an entry for a particular
@@ -53,8 +47,6 @@ public class NameSurferEntry implements NameSurferConstants {
     public int getRank(int decade) {
         return rank[decade];
     }
-
-	/* Method: toString() */
 
     /**
      * Returns a string that makes it easy to see the value of a

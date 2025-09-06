@@ -18,16 +18,13 @@ import java.awt.*;
 public class NameSurferGraph extends GCanvas
         implements NameSurferConstants, ComponentListener {
 
-    private final HashMap<String, NameSurferEntry> nameEntries;
-    private final Color[] colors = {Color.BLUE, Color.RED, Color.MAGENTA, Color.BLACK};
+    private final LinkedHashMap<String, NameSurferEntry> nameEntries = new LinkedHashMap<>();
     /**
      * Creates a new NameSurferGraph object that displays the data.
      */
     public NameSurferGraph() {
         addComponentListener(this);
-        this.nameEntries = new HashMap<>();
     }
-
 
     /**
      * Clears the list of name surfer entries stored inside this class.
@@ -35,9 +32,6 @@ public class NameSurferGraph extends GCanvas
     public void clear() {
         nameEntries.clear();
     }
-
-	
-	/* Method: addEntry(entry) */
 
     /**
      * Adds a new NameSurferEntry to the list of entries on the display.
@@ -62,9 +56,9 @@ public class NameSurferGraph extends GCanvas
         createVerticalLines(retreat);
 
         // Horizontal lines
-        createLine(0, GRAPH_MARGIN_SIZE, getWidth(), GRAPH_MARGIN_SIZE);
+        createLine(0, GRAPH_MARGIN_SIZE, getWidth(), GRAPH_MARGIN_SIZE, Color.BLACK);
         createLine(0, getHeight() - GRAPH_MARGIN_SIZE,
-                getWidth(), getHeight() - GRAPH_MARGIN_SIZE);
+                getWidth(), getHeight() - GRAPH_MARGIN_SIZE, Color.BLACK);
 
         drawGraph(retreat);
     }
@@ -76,22 +70,9 @@ public class NameSurferGraph extends GCanvas
      * @param y1 y-coordinate of the first point
      * @param x2 x-coordinate of the second point
      * @param y2 y-coordinate of the second point
-     */
-    public void createLine(double x1, double y1, double x2, double y2) {
-        GLine line = new GLine(x1, y1, x2, y2);
-        add(line);
-    }
-
-    /**
-     * Method for creating a line at given points
-     *
-     * @param x1 x-coordinate of the first point
-     * @param y1 y-coordinate of the first point
-     * @param x2 x-coordinate of the second point
-     * @param y2 y-coordinate of the second point
      * @param color line color
      */
-    public void createLine(double x1, double y1, double x2, double y2, Color color) {
+    private void createLine(double x1, double y1, double x2, double y2, Color color) {
         GLine line = new GLine(x1, y1, x2, y2);
         line.setColor(color);
         add(line);
@@ -102,7 +83,7 @@ public class NameSurferGraph extends GCanvas
      *
      * @param retreat uniform distance between vertical lines
      */
-    public void createVerticalLines(int retreat){
+    private void createVerticalLines(int retreat){
         for(int i = 0; i < NDECADES; i++) {
             createLine(i * retreat, 0, i * retreat, getHeight(), Color.BLACK);
 
@@ -117,13 +98,13 @@ public class NameSurferGraph extends GCanvas
      *
      * @param retreat uniform distance between vertical lines
      */
-    public void drawGraph(int retreat) {
+    private void drawGraph(int retreat) {
         int colorIndex = 0;
         for(NameSurferEntry entry : nameEntries.values()) {
             drawEntry(entry, retreat, colorIndex);
 
             colorIndex++;
-            if(colorIndex == colors.length) {
+            if(colorIndex == COLORS.length) {
                 colorIndex = 0;
             }
         }
@@ -136,7 +117,7 @@ public class NameSurferGraph extends GCanvas
      * @param retreat uniform distance between vertical lines
      * @param colorIndex color index with which to draw the graph
      */
-    public void drawEntry(NameSurferEntry entry, int retreat, int colorIndex) {
+    private void drawEntry(NameSurferEntry entry, int retreat, int colorIndex) {
         for (int i = 0; i < NDECADES; i++) {
             int rank = entry.getRank(i);
             double x = i * retreat;
@@ -144,7 +125,7 @@ public class NameSurferGraph extends GCanvas
             String rankString = (rank == 0) ? "*" : Integer.toString(rank);
 
             GLabel label = new GLabel(entry.getName() + " " + rankString, x, y);
-            label.setColor(colors[colorIndex]);
+            label.setColor(COLORS[colorIndex]);
             add(label);
 
             if (i != 0) {
@@ -152,7 +133,7 @@ public class NameSurferGraph extends GCanvas
                 int previousRank = entry.getRank(i - 1);
                 double previousY = getYPosition(previousRank);
 
-                createLine(previousPointX, previousY, x, y, colors[colorIndex]);
+                createLine(previousPointX, previousY, x, y, COLORS[colorIndex]);
             }
         }
     }
@@ -163,11 +144,11 @@ public class NameSurferGraph extends GCanvas
      * @param rank the level of popularity of a name at a specific time
      * @return y-coordinate for a specific name at a specific time
      */
-    public double getYPosition(int rank){
+    private double getYPosition(int rank){
         if (rank == 0) {
             return getHeight() - GRAPH_MARGIN_SIZE;
         } else {
-            return GRAPH_MARGIN_SIZE + (double) rank / MAX_RANK * (getHeight() - GRAPH_MARGIN_SIZE);
+            return GRAPH_MARGIN_SIZE + (double) rank / MAX_RANK * (getHeight() - GRAPH_MARGIN_SIZE * 2);
         }
     }
 
