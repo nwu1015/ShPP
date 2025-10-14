@@ -14,7 +14,7 @@ public class Assignment2Part6 extends WindowProgram {
     /**
      * A constant that stores the number of caterpillar segments.
      */
-    private static final int SEGMENTS = 5;
+    private static final int SEGMENTS = 11;
 
     /**
      * A constant that stores the size of a circle (segment).

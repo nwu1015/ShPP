@@ -3,7 +3,10 @@ package com.shpp.p2p.cs.vmarchenko.assignment3;
 import acm.graphics.GOval;
 import com.shpp.cs.a.graphics.WindowProgram;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.HashMap;
 
 /**
@@ -67,6 +70,7 @@ public class Assignment3Part6 extends WindowProgram {
      */
     private static final Color PLANET3_COLOR = Color.GREEN;
 
+
     /**
      * The main method of application. Allows to test the given program.
      * Here the Sun, planets are created and the animation starts.
@@ -96,8 +100,10 @@ public class Assignment3Part6 extends WindowProgram {
         double planet3Angle = 0.01;
         planets.put(planet3, planet3Angle);
 
+        pause(3000);
         doAnimation(planets);
     }
+
 
     /**
      * Creates a circle according to given parameters.
