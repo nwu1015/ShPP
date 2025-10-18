@@ -20,7 +20,7 @@ public class Assignment10Part1 {
      */
     public static void main(String[] args) {
         System.out.println("The given equation and its parameters:");
-        for(String result: args){
+        for (String result : args) {
             System.out.println(result);
         }
 
@@ -43,12 +43,12 @@ public class Assignment10Part1 {
      * and lastly, addition and subtraction.
      * Also correctly handles expressions that begin with a minus sign.
      *
-     * @param formula mathematical expression
+     * @param formula   mathematical expression
      * @param variables HashMap, which containing variables and their numerical values
      * @return The result of calculating the expression.
      */
     private static double calculate(String formula, HashMap<String, Double> variables) {
-        if(formula.startsWith("-")){
+        if (formula.startsWith("-")) {
             formula = "0" + formula;
         }
 
@@ -64,7 +64,7 @@ public class Assignment10Part1 {
         for (int i = 1; i < elements.size(); i += 2) {
             String operator = elements.get(i);
             double num1 = result;
-            double num2 = convertParamToNumber(elements.get(i+1), variables);
+            double num2 = convertParamToNumber(elements.get(i + 1), variables);
 
             result = mathOperation(num1, num2, operator);
         }
@@ -83,7 +83,7 @@ public class Assignment10Part1 {
         HashMap<String, Double> variables = new HashMap<>();
         for (int i = 1; i < args.length; i++) {
 
-            if(!args[i].matches("[a-zA-Z]+=-?\\d+(\\.\\d+)?")){
+            if (!args[i].matches("[a-zA-Z]+=-?\\d+(\\.\\d+)?")) {
                 System.out.println("Incorrect syntax. Please, use the following syntax: param=value");
                 System.exit(1);
             }
@@ -100,8 +100,8 @@ public class Assignment10Part1 {
     /**
      * Performs one mathematical operation on two numbers.
      *
-     * @param num1 First number
-     * @param num2 Second number
+     * @param num1     First number
+     * @param num2     Second number
      * @param operator A string representing an operator
      * @return The result of the operation.
      */
@@ -124,7 +124,7 @@ public class Assignment10Part1 {
      * @param number A string representing a number.
      * @return A number of type double.
      */
-    private static double parseStringToDouble(String number){
+    private static double parseStringToDouble(String number) {
         return Double.parseDouble(number.replace(",", "."));
     }
 
@@ -133,19 +133,19 @@ public class Assignment10Part1 {
      * If that fails, looks for the string in the variable map.
      * If the variable is not found, prints an error and terminates the program.
      *
-     * @param number1 A string that can be a number or a variable name.
+     * @param number1   A string that can be a number or a variable name.
      * @param variables HashMap of variables to search.
      * @return Numerical value.
      */
-    private static double convertParamToNumber(String number1, HashMap<String, Double> variables){
+    private static double convertParamToNumber(String number1, HashMap<String, Double> variables) {
         double num1;
         try {
             num1 = parseStringToDouble(number1);
             return num1;
-        }catch (NumberFormatException e){
-            if(variables.containsKey(number1)){
+        } catch (NumberFormatException e) {
+            if (variables.containsKey(number1)) {
                 return variables.get(number1);
-            }else {
+            } else {
                 System.out.println("Error. You don't have this parameter");
                 System.exit(1);
             }
@@ -157,12 +157,12 @@ public class Assignment10Part1 {
      * Finds and performs all operations of a specific type in a list of elements.
      *
      * @param operation Type of operation to search for and perform
-     * @param elements The list of expression elements to be modified.
+     * @param elements  The list of expression elements to be modified.
      * @param variables HashMap of variables required for calculations.
      */
     private static void processOperation(String operation,
                                          ArrayList<String> elements,
-                                         HashMap<String, Double> variables){
+                                         HashMap<String, Double> variables) {
         List<String> operators = new ArrayList<>();
         operators.add("+");
         operators.add("-");
@@ -170,13 +170,13 @@ public class Assignment10Part1 {
         operators.add("/");
         operators.add("^");
 
-        for(int i = 1; i < elements.size(); i += 2){
-            if(operators.contains(elements.get(i)) && elements.get(i).equals(operation)){
+        for (int i = 1; i < elements.size(); i += 2) {
+            if (operators.contains(elements.get(i)) && elements.get(i).equals(operation)) {
                 double num1 = convertParamToNumber(elements.get(i - 1), variables);
                 double num2 = convertParamToNumber(elements.get(i + 1), variables);
 
-                elements.set(i-1, String.valueOf(mathOperation(num1, num2, operation)));
-                elements.remove(i+1);
+                elements.set(i - 1, String.valueOf(mathOperation(num1, num2, operation)));
+                elements.remove(i + 1);
                 elements.remove(i);
 
                 i -= 2;
