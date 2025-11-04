@@ -1,4 +1,6 @@
-package com.shpp.p2p.cs.vmarchenko.assignment10;
+package com.shpp.p2p.cs.vmarchenko.assignment11;
+
+import com.shpp.p2p.cs.vmarchenko.assignment10.Operator10;
 
 /**
  * Represents basic arithmetic operators such as addition, subtraction,

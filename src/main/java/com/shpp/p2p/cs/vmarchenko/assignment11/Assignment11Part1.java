@@ -1,6 +1,4 @@
-// TODO: піднесення до степеня справа-наліво
-
-package com.shpp.p2p.cs.vmarchenko.assignment10;
+package com.shpp.p2p.cs.vmarchenko.assignment11;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +10,24 @@ import java.util.HashMap;
  * the parameters for this expression are taken from the args array.
  * The expression is then evaluated and the result is printed to the console.
  */
-public class Assignment10Part1 {
+public class Assignment11Part1 {
+
+    private final HashMap<String, IAction> actions = new HashMap<>();
+
+    public Assignment11Part1() {
+        actions.put("+", new AddAction());
+        actions.put("-", new MinusAction());
+        actions.put("*", new MultipleAction());
+        actions.put("/", new DivideAction());
+        actions.put("sin", new SinAction());
+        actions.put("cos", new CosAction());
+        actions.put("tan", new TanAction());
+        actions.put("atan", new AtanAction());
+        actions.put("log10", new Log10Action());
+        actions.put("log2", new Log2Action());
+        actions.put("sqrt", new SqrtAction());
+    }
+
     /**
      * The main method of the program. Allows you to run the program for testing.
      * Splits the argument array into two groups: the expression itself and its parameters.
@@ -21,7 +36,7 @@ public class Assignment10Part1 {
      */
     public static void main(String[] args) throws Exception {
 
-        Assignment10Part1 obj = new Assignment10Part1();
+        Assignment11Part1 obj = new Assignment11Part1();
 
         System.out.println("The given equation and its parameters:");
         for (String result : args) {
@@ -168,21 +183,12 @@ public class Assignment10Part1 {
      * @param operator A string representing an operator
      * @return The result of the operation.
      */
-    private double mathOperation(double num1, double num2, String operator) {
-        Operator10 op = Operator10.checkSymbol(operator);
-
-        return switch (op) {
-            case ADD -> num1 + num2;
-            case MINUS -> num1 - num2;
-            case MULTIPLY -> num1 * num2;
-            case DIVIDE -> {
-                if (num2 == 0) {
-                    throw new ArithmeticException("You can't divide by zero");
-                }
-                yield num1 / num2;
-            }
-            case POWER -> Math.pow(num1, num2);
-        };
+    private double mathOperation(double num1, double num2, String operator) throws Exception {
+        IAction action = actions.get(operator);
+        if (action == null) {
+            throw new Exception("Incorrect operator");
+        }
+        return action.execute(num1, num2);
     }
 
     /**
