@@ -1,8 +1,6 @@
 package com.shpp.p2p.cs.vmarchenko.assignment11;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * Assignment 10: Simple Calculator.
@@ -54,8 +52,10 @@ public class Assignment11Part1 {
         HashMap<String, Double> variables = obj.parseVariablesFromArgs(args);
 
         ArrayList<String> elements = new ArrayList<>(Arrays.asList(
-                formula.split("(?<=[-+*/^])|(?=[-+*/^])")
+                formula.split("(?<=[-+*/^()])|(?=[-+*/^()])")
         ));
+
+        System.out.println(elements);
 
         System.out.println("Result: " + obj.calculate(variables, elements));
     }
@@ -97,10 +97,19 @@ public class Assignment11Part1 {
         operators.add("/");
         operators.add("^");
 
+        calculateFunctions(elements, variables);
+
+        processBrackets(variables, elements);
+
         processHighPriorityOperation(operators, variables, elements);
 
         return calculateSequentially(variables, elements);
     }
+
+    private void processBrackets(HashMap<String, Double> variables, ArrayList<String> elements) throws Exception {
+
+    }
+
 
     /**
      * Performs all mathematical operations with higher priority.
@@ -116,6 +125,7 @@ public class Assignment11Part1 {
     private void processHighPriorityOperation(ArrayList<String> elements,
                                               HashMap<String, Double> variables,
                                               ArrayList<String> operators) throws Exception {
+
         processOperation("^", elements, variables, operators);
         processOperation("*", elements, variables, operators);
         processOperation("/", elements, variables, operators);
@@ -158,7 +168,6 @@ public class Assignment11Part1 {
     private HashMap<String, Double> parseVariablesFromArgs(String[] args) throws Exception {
         HashMap<String, Double> variables = new HashMap<>();
         for (int i = 1; i < args.length; i++) {
-
             args[i] = args[i].replace(" ", "");
 
             if (!args[i].matches("[a-zA-Z]+=-?\\d+(\\.\\d+)?")) {
@@ -213,6 +222,33 @@ public class Assignment11Part1 {
             }
         }
     }
+
+    private void calculateFunctions(ArrayList<String> elements, HashMap<String, Double> variables) throws Exception {
+        for(int i = 0; i < elements.size(); i++){
+            String operator = elements.get(i).toLowerCase();
+
+            if(actions.containsKey(operator)){
+                if(elements.get(i+1).equals("(")){
+                    int closingBracket = elements.indexOf(")");
+                    if(closingBracket == -1){
+                        throw new Exception("In this equation symbol \")\" does not exist");
+                    }
+
+                    List<String> elementsInFunctions = elements.subList(i+2, closingBracket);
+                    double resultInFunction = calculate(variables, new ArrayList<>(elementsInFunctions));
+
+                    double result = mathOperation(resultInFunction, 0, operator);
+
+                    for (int j = closingBracket; j >= i; j--) {
+                        elements.remove(j);
+                    }
+                    elements.add(i, String.valueOf(result));
+                    i--;
+                }
+            }
+        }
+    }
+
 
     /**
      * Finds and performs all operations of a specific type in a list of elements.
